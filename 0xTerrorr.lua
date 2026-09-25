@@ -1,22 +1,22 @@
 --[[ 0xTerror Stealer — Keyless Standalone
-     Delta Executor | Luau | WindUI | Auto Steal (one-shot, not loop) ]]
-
----------- SERVICES ----------
-local Players = game:GetService("Players")
+     Delta Executor | Luau | WindUI | Auto Steal (one-shot, not loop) ]]                                                        
+---------- SERVICES ----------                                  local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")  local Workspace = game:GetService("Workspace")
 local TweenService = game:GetService("TweenService")            local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")    local StarterGui = game:GetService("StarterGui")
-local HttpService = game:GetService("HttpService")              
-local LocalPlayer = Players.LocalPlayer                         local Camera = Workspace.CurrentCamera
-                                                                ---------- WINDUI ----------                                    local WindUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/Footagesus/WindUI/main/main.lua"))()
+local HttpService = game:GetService("HttpService")                                                                              local LocalPlayer = Players.LocalPlayer
+local Camera = Workspace.CurrentCamera
+
+---------- WINDUI ----------
+local WindUI = loadstring((syn and syn.request or request)({Url = "https://raw.githubusercontent.com/Footagesus/WindUI/main/main.lua", Method = "GET"}).Body)()
 
 ---------- CONFIG ----------
-local CFG = {
-    AutoSteal = false, AutoHatch = false, AutoPlace = false,
+local CFG = {                                                       AutoSteal = false, AutoHatch = false, AutoPlace = false,
     StealDelay = 0.5, ReturnSpeed = 50, Movement = "Tween",
     MinRarity = "Common", MinSize = 0, MinValue = 0,
     BiomeTarget = "All", TargetMutations = {},
-    KillAura = false, AntiStun = true, AntiAFK = true,              HitRange = 10, ESPColor = Color3.fromRGB(255, 85, 85),
+    KillAura = false, AntiStun = true, AntiAFK = true,
+    HitRange = 10, ESPColor = Color3.fromRGB(255, 85, 85),
     ShowDistance = true, ShowHealth = true,
     NotifyRare = true, ToggleKey = "RightControl",
 }
