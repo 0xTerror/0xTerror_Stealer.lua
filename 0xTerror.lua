@@ -391,16 +391,19 @@ local function autoSteal()
 end
 
 ---------- GUI ----------
-local Window = WindUI:CreateWindow({
-    Title = "0xTerror Stealer",
-    Center = true, AutoShow = true,
-    TabPadding = 8, MenuFadeTime = 0.2,
-})
-local guiLoaded = pcall(function() WindUI:Notify("0xTerror Stealer loaded", 5) end)
-if not guiLoaded then
-    pcall(function() StarterGui:SetCore("SendNotification", {Title = "0xTerror", Text = "0xTerror Stealer loaded", Duration = 5}) end)
-end
+local Window, guiOk = nil, false
+pcall(function()
+    local ok, err = pcall(function()
+        local parent = (syn and syn.protect_gui) and syn.protect_gui(game:GetService("CoreGui")) or game:GetService("CoreGui")
+        if gethui then parent = gethui() end
+        Window = WindUI:CreateWindow({Title = "0xTerror Stealer", Size = UDim2.new(0,400,0,500)})
+        Window:SetParent(parent)
+    end)
+    guiOk = ok
+    if not ok then warn("[0xTerror] GUI create failed: " .. tostring(err)) end
+end)
 
+if guiOk then
 ---------- DASHBOARD ----------
 local DashTab = Window:AddTab("Dashboard")
 local dashLabels = {}
@@ -513,7 +516,9 @@ task.spawn(function()
         task.wait(1)
     end
 end)
+end
 
 ---------- INIT ----------
 setupAntiAFK()
 setupAntiStun()
+pcall(function() if guiOk then WindUI:Notify("0xTerror Stealer loaded", 5) end end)
